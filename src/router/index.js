@@ -1,12 +1,14 @@
 const router = require('express').Router();
 const authRoutes = require('./auth');
+const secretRoutes = require('./secret');
 
-router.get('/', function (req, res) {
-    res.send('ok');
-});
+module.exports = function (passport) {
+    router
+        .use('/', authRoutes())
+        .use('/', secretRoutes(passport))
+        .get('/test', function (req, res) {
+            res.send('ok');
+        });
 
-module.exports = function (api) {
-    api
-        .use('/', authRoutes)
-        .use('/api', router)
+    return router;
 };

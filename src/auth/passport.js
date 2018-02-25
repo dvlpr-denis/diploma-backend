@@ -20,7 +20,6 @@ const strategy = new JwtStrategy(jwtOptions, async function (jwtPayload, next) {
             next(null, false);
         }
     } catch (e) {
-        console.log(e);
         next(e);
     }
 });
