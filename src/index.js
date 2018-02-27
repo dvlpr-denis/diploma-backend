@@ -1,6 +1,8 @@
 const express = require('express');
 const config = require('config');
 const bodyParser = require('body-parser');
+const path = require('path');
+const cors = require('cors');
 const passport = require('./auth/passport');
 const dbConnect = require('./database/mongodb');
 
@@ -10,8 +12,15 @@ const api = express();
 const db = dbConnect();
 
 api
-    .use(bodyParser.urlencoded({ extended: false }))
+    .use(function (req, res, next) {
+        res.set('Access-Control-Allow-Origin', '*');
+        res.set('Access-Control-Allow-Methods', '"GET,POST');
+
+        next();
+    })
+    .use(express.static(path.join(__dirname, 'public')))
     .use(bodyParser.json())
+    .use(bodyParser.urlencoded({ extended: true }))
     .use(passport.initialize())
     .use('/', routes)
     .listen(config.api.port, () => {

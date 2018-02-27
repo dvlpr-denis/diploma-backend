@@ -3,9 +3,11 @@ const jwt = require('jsonwebtoken');
 const config = require('config');
 const User = require('../database/models/user');
 
-module.exports = function (passport) {
+module.exports = function () {
     router
-        .post('/login', async function (req, res) {
+        .post('/signin', async function (req, res) {
+            console.log(req.body);
+            
             let username;
             let password;
 
@@ -32,12 +34,13 @@ module.exports = function (passport) {
                 res.status(401).json({message: "passwords did not match"});
             }
         })
-        .post('/signin', async function (req, res) {
+        .post('/signup', async function (req, res) {
             try {
                 await User.create(req.body);
                 res.send({msg: 'Created'});
             } catch (e) {
                 console.log(e);
+
                 res.send({msg: 'Error'});
             }
         });
