@@ -13,6 +13,6 @@
     "saveUninitialized": true
   },
   "db": {
-    "url": "mongodb://denis:denis123456@ds012198.mlab.com:12198/diploma"
+    "url": "mongodb://maxim:password@127.0.0.1:27017/diploma"
   }
 }
